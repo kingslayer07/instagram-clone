@@ -23,7 +23,9 @@
    
    background-color:#242526;
    /* padding:0 10px 20px 30px; */
-   
-   
- }
+  }
+.app_signup{
+    display: flex;
+    flex-direction:column ;
+  }
  
