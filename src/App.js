@@ -6,7 +6,7 @@ import './App.css';
 import Post from './Post'
 import { db, auth } from './firebase'
 import { Button,Input } from '@material-ui/core';
-
+import ImageUpload from './ImageUpload'
 function getModalStyle() {
   const top = 50 
   const left = 50 
@@ -106,8 +106,17 @@ function App() {
    },[] )
   return (
     <div className="App">
+    {/* condition on user's logginn status */}
+    {user?.displayName ? (
+     <ImageUpload username={user.displayName} ></ImageUpload> 
+      ) : (
+        <h3>sorry, you aint signed in.</h3>
+        )    
+    }
+    
+    
     {/* signup modal render */}
-    <Modal
+      <Modal
         open={open}
         onClose={()=> setOpen(false)}
       >
