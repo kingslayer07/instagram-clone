@@ -1,22 +1,28 @@
  *{
-     background-color: black;
-     color: #FDFDFD;
+     /* background-color: black;
+     color: #FDFDFD; */
  
   margin: 0;
  }
  .app{
-   background-color: black;
+   /* background-color: black; */
    
  }
  .app_header{
   border-bottom: 1px solid #3F3F40; 
   background-color: #222224;
+   display: flex; 
+   justify-content: space-between;
+   position: sticky;
+   top: 0; 
+   z-index: 1;
  }
  .app_headerImage{
    object-fit: contain;
    /* height: 100px;
    width: 100px; */
    height: 50px;
+   margin-left: 208px;
    /* margin-left: 500px;
    margin-right: auto; */
    text-align: center;

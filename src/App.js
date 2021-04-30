@@ -1,12 +1,13 @@
 import React, {useState, useEffect } from 'react' ;
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-
 import './App.css';
 import Post from './Post'
 import { db, auth } from './firebase'
 import { Button,Input } from '@material-ui/core';
 import ImageUpload from './ImageUpload'
+import InstagramEmbed from 'react-instagram-embed';
+
 function getModalStyle() {
   const top = 50 
   const left = 50 
@@ -96,7 +97,7 @@ function App() {
 
   //rendering posts 
   useEffect(() =>{
-      db.collection('posts').onSnapshot(snapshot =>{
+      db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
         setPosts(snapshot.docs.map(doc => ({
           id:doc.id ,
           post: doc.data()
@@ -106,13 +107,6 @@ function App() {
    },[] )
   return (
     <div className="App">
-    {/* condition on user's logginn status */}
-    {user?.displayName ? (
-     <ImageUpload username={user.displayName} ></ImageUpload> 
-      ) : (
-        <h3>sorry, you aint signed in.</h3>
-        )    
-    }
     
     
     {/* signup modal render */}
@@ -194,7 +188,6 @@ function App() {
        <img
         className='app_headerImage'
         src="https://logodix.com/logo/836891.png" alt=""/>
-     </div>
 
      {user ? (
        <Button onClick={ () => auth.signOut()}>LogOut</Button>
@@ -207,13 +200,28 @@ function App() {
 
        </div>
       ) }
+     </div>
+     <div>
+    
      {/* posts */}
      {posts.map(( {id, post})=>{
        return (       
-         <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+         <Post key={id} postId = {id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
 )     } )}
+     </div>
+     
+
+ {/* condition on user's logginn status */}
+    {user?.displayName ? (
+     <ImageUpload username={user.displayName} ></ImageUpload> 
+      ) : (
+        <h3>sorry, you aint signed in.</h3>
+        )    
+    }
+   
     </div>
   );
 }
 
 export default App;
+
