@@ -1,17 +1,17 @@
 .post{
     max-width: 500px;
     margin-top: 30px;
-    margin-left: 253px;
+    margin-left: 230px;
     margin-bottom: 45px;
     border: 1px solid #3F3F40; 
-    background-color:#242526;
+    background-color: #222224;;
     
 }
 .post_header{
     display: flex;
     align-items: center ;
     padding: 20px ;
-    background-color:#242526;
+    background-color: #222224;
 }
 .post_image{
     width: 100%;
@@ -32,18 +32,45 @@
 .post_commentBox{
     display: flex;
     margin-top: 10px;
+    background-color: #222224;
 }
 .post_input{
     flex: 1;
     border: none;
     padding: 10px;
-    border-top: 1px solid lightgray;
+    /* border-top: 1px solid lightgray; */
 }
 .post_button{
     flex: 0;
     border: none;
-    color: lightskyblue;
+    color: #1A435F;
 }
 .post_comments{
     padding: 20px;
+    background-color: #222224;
+}
+.likeButton{
+    margin-left: 15px;
+    background-color: #222224;
+    
+    border: none;
+}
+.commentButton{
+    margin-left: 5px;
+    background-color: #222224;
+    border: none;
+}
+.sendButton{
+    margin-left: 5px;
+    background-color: #222224;
+    border: none;
+}
+/* .bg{
+
+    background-color: darkred;
+    border-radius:5px;
+} */
+.buttons{
+    background-color: #222224;
+    margin-top: 10px;
 }

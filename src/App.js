@@ -6,7 +6,7 @@ import Post from './Post'
 import { db, auth } from './firebase'
 import { Button,Input } from '@material-ui/core';
 import ImageUpload from './ImageUpload'
-import InstagramEmbed from 'react-instagram-embed';
+import Loading from './Loading'
 
 function getModalStyle() {
   const top = 50 
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-
+  const [loading, setLoading] = useState(true)
   const [username, setUsername] =useState('')
   const [email, setEmail] =useState('')
   const [password, setPassword] =useState('')
@@ -97,7 +97,10 @@ function App() {
 
   //rendering posts 
   useEffect(() =>{
+      setLoading(true)
       db.collection('posts').orderBy('timestamp','desc').onSnapshot(snapshot =>{
+        // setting loading false
+        setLoading(false)
         setPosts(snapshot.docs.map(doc => ({
           id:doc.id ,
           post: doc.data()
@@ -105,12 +108,22 @@ function App() {
       })
      
    },[] )
+
+  if(loading){
+    
+    
+    return(
+      <main >
+        <Loading></Loading>
+      </main>
+    )
+  } 
   return (
-    <div className="App">
+    <div  className="App">
     
     
     {/* signup modal render */}
-      <Modal
+      <Modal style={{backgroundColor:'#222224'}}
         open={open}
         onClose={()=> setOpen(false)}
       >
@@ -123,25 +136,25 @@ function App() {
         src="https://logodix.com/logo/836891.png" alt=""/>
        </center>
       
-      <Input 
+      <Input style={{color:'white'}}
         type="text"
         placeholder='username'
         value={username}
         onChange={(e) =>setUsername(e.target.value)}
       />
-      <Input 
+      <Input style={{color:'white'}}
         type="text"
         placeholder='email'
         value={email}
         onChange={(e) =>setEmail(e.target.value)}
       />
-      <Input 
+      <Input style={{color:'white'}}
         type="password"
         placeholder='password'
         value={password}
         onChange={(e) =>setPassword(e.target.value)}
       />
-        <Button type='submit' onClick={signup}>Sign Up </Button>
+        <button style={{color:'white'}} className='buttonn' backgroundColor='#222224' type='submit' onClick={signup}>Sign Up </button>
       
                    
       </form>
@@ -163,19 +176,19 @@ function App() {
        </center>
       
       
-      <Input 
+      <Input style={{color:'white'}}
         type="text"
         placeholder='email'
         value={email}
         onChange={(e) =>setEmail(e.target.value)}
       />
-      <Input 
+      <Input style={{color:'white'}}
         type="password"
         placeholder='password'
         value={password}
         onChange={(e) =>setPassword(e.target.value)}
       />
-        <Button type='submit' onClick={signIn}>Sign In </Button>
+        <button style={{color:'white'}} className='buttonn' backgroundColor='#222224' type='submit' onClick={signup}>Sign In </button>
       
                    
       </form>
@@ -190,15 +203,16 @@ function App() {
         src="https://logodix.com/logo/836891.png" alt=""/>
 
      {user ? (
-       <Button onClick={ () => auth.signOut()}>LogOut</Button>
+       <button className='buttonn' backgroundColor='#222224' onClick={ () => auth.signOut()}>LogOut</button>
      ): ( 
-       <div>
-      <Button onClick={()=> setOpenSignIn(true)} >Sign In </Button> 
-     <Button className='button' onClick={() =>setOpen(true)} variant="contained" color="primary" component="span">
-          Sign Up
-        </Button>
+        <span>
+          <button className='buttonn'  onClick={()=> setOpenSignIn(true)} >Sign In </button> 
+          <button className='buttonn'  onClick={() =>setOpen(true)} >
+            Sign Up
+          </button>
+          </span>
 
-       </div>
+       
       ) }
      </div>
      <div>
